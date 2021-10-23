@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 
-namespace MachineProblem
+namespace ConsoleApp1
 {
     class Widgets
     {
@@ -456,9 +456,11 @@ namespace MachineProblem
     }
     class ParkingLot
     {
+        Label La;
         TextBox PlateNo;
         TextBox TimeIn;
         Form ParkingFloor;
+        DateTime customDate1;
 
         Button Button1;
         Button Button2;
@@ -490,13 +492,13 @@ namespace MachineProblem
         Button Floor4;
         Button Floor5;
         Button Back;
-
         double Fee = 20.00;
 
         Widgets ww = new Widgets();
 
         public void Floor(string floorNum)
         {
+            customDate1 = new DateTime(2021, 10, 21);
             ParkingFloor = new Form
             {
                 Text = "Parking Ticket System",
@@ -505,9 +507,19 @@ namespace MachineProblem
                 Height = 500,
                 StartPosition = FormStartPosition.CenterScreen
             };
+            La = new Label
+            {
+                Text = DateTime.Now.ToString("HH:mm"),
+                Width = 150,
+                Height = 50,
+                Location = new Point(530, 10),
+                Font = new Font("Bahnschrift SemiLight", 20)
+            };
 
             ww.Lbl(ParkingFloor, floorNum, 10, 10, 15);
             ww.Lbl(ParkingFloor, "PARKING LOT", 250, 10, 20);
+            ww.Lbl(ParkingFloor, "Time:", 480, 10, 15);
+
 
             Button1 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 120, 50, 10);
             Button2 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 230, 50, 10);
@@ -545,6 +557,23 @@ namespace MachineProblem
             Button1.Click += (object sender, EventArgs e) => Button1_onClick(floorNum);
             Button2.Click += (object sender, EventArgs e) => Button2_onClick(floorNum);
             Button3.Click += (object sender, EventArgs e) => Button3_onClick(floorNum);
+            Button4.Click += (object sender, EventArgs e) => Button4_onClick(floorNum);
+            Button5.Click += (object sender, EventArgs e) => Button5_onClick(floorNum);
+            Button6.Click += (object sender, EventArgs e) => Button6_onClick(floorNum);
+            Button7.Click += (object sender, EventArgs e) => Button7_onClick(floorNum);
+            Button8.Click += (object sender, EventArgs e) => Button8_onClick(floorNum);
+            Button9.Click += (object sender, EventArgs e) => Button9_onClick(floorNum);
+            Button10.Click += (object sender, EventArgs e) => Button10_onClick(floorNum);
+            /*Button11.Click += (object sender, EventArgs e) => Button11_onClick(floorNum);
+            Button12.Click += (object sender, EventArgs e) => Button12_onClick(floorNum);
+            Button13.Click += (object sender, EventArgs e) => Button13_onClick(floorNum);
+            Button14.Click += (object sender, EventArgs e) => Button14_onClick(floorNum);
+            Button15.Click += (object sender, EventArgs e) => Button15_onClick(floorNum);
+            Button16.Click += (object sender, EventArgs e) => Button16_onClick(floorNum);
+            Button17.Click += (object sender, EventArgs e) => Button17_onClick(floorNum);
+            Button18.Click += (object sender, EventArgs e) => Button18_onClick(floorNum);
+            Button19.Click += (object sender, EventArgs e) => Button19_onClick(floorNum);
+            Button20.Click += (object sender, EventArgs e) => Button20_onClick(floorNum);*/
 
             Floor1.Click += (object sender, EventArgs e) => Floor1_Click();
             Floor2.Click += (object sender, EventArgs e) => Floor2_Click();
@@ -576,6 +605,7 @@ namespace MachineProblem
                 AutoSize = true,
                 Font = new Font("Bahnschrift SemiLight", 13)
             };
+            ParkingFloor.Controls.Add(La);
             ParkingFloor.Controls.Add(PlateNo);
             ParkingFloor.Controls.Add(TimeIn);
         }
@@ -617,6 +647,9 @@ namespace MachineProblem
         {
             BtnNo.BackColor = Color.DarkSeaGreen;
             BtnNo.Text = "Unoccupied";
+            int total;
+
+
             //compute for total fee
             //timeIn - timeOut
 
@@ -625,6 +658,7 @@ namespace MachineProblem
             {
                 using (StreamWriter write = new StreamWriter("Fees.txt", true))
                 {
+
                     write.WriteLine(Fee);
                 }
             }
@@ -634,7 +668,7 @@ namespace MachineProblem
             }
 
             // display the parking fee
-            MessageBox.Show("The parking fee is P" + Fee);
+            MessageBox.Show("The parking fee is P");
 
         }
         public void Button1_onClick(string floorNum)
@@ -653,7 +687,41 @@ namespace MachineProblem
             First_Click(Button3, floorNum);
             Button3.Click += (object sender, EventArgs e) => Second_Click(Button3, floorNum);
         }
-
+        public void Button4_onClick(string floorNum)
+        {
+            First_Click(Button4, floorNum);
+            Button4.Click += (object sender, EventArgs e) => Second_Click(Button4, floorNum);
+        }
+        public void Button5_onClick(string floorNum)
+        {
+            First_Click(Button5, floorNum);
+            Button5.Click += (object sender, EventArgs e) => Second_Click(Button5, floorNum);
+        }
+        public void Button6_onClick(string floorNum)
+        {
+            First_Click(Button6, floorNum);
+            Button6.Click += (object sender, EventArgs e) => Second_Click(Button6, floorNum);
+        }
+        public void Button7_onClick(string floorNum)
+        {
+            First_Click(Button7, floorNum);
+            Button7.Click += (object sender, EventArgs e) => Second_Click(Button7, floorNum);
+        }
+        public void Button8_onClick(string floorNum)
+        {
+            First_Click(Button8, floorNum);
+            Button8.Click += (object sender, EventArgs e) => Second_Click(Button8, floorNum);
+        }
+        public void Button9_onClick(string floorNum)
+        {
+            First_Click(Button9, floorNum);
+            Button9.Click += (object sender, EventArgs e) => Second_Click(Button9, floorNum);
+        }
+        public void Button10_onClick(string floorNum)
+        {
+            First_Click(Button10, floorNum);
+            Button10.Click += (object sender, EventArgs e) => Second_Click(Button10, floorNum);
+        }
 
         public void Floor1_Click()
         {
@@ -694,14 +762,6 @@ namespace MachineProblem
     {
         static void Main(string[] args)
         {
-            //dont mind these...just testing specific pages para wala masyadong pindot
-
-            /*ParkingLot pp = new ParkingLot();
-            pp.Floor("Floor 1"); 
-            DelAccount dd = new DelAccount();
-            dd.Remove();
-            */
-
             LoginForm login = new LoginForm();
             login.Login();
 
