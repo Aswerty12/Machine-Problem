@@ -626,19 +626,11 @@ namespace ConsoleApp1
                     foreach (string line in lines)
                     {
                         string[] info = line.Split(',');
-
-                        //will delete this. just testing
-                        Console.WriteLine("Plate No: {0}\nTime Parked: {1}", info[0], info[1]);
-
                         TimeIn = info[1];
                         //compute
                         HourDifference = Convert.ToDateTime(TimeIn) - Convert.ToDateTime(TimeOut);
-                        Sum = Convert.ToDouble(HourDifference.TotalHours) * Fee;
+                        Sum = (HourDifference.TotalHours * Fee) * -1;
                         string Total = string.Format("{0:N2}", Sum);
-
-                        //just testing
-                        Console.WriteLine("Hours in park: {0:N2}\nTotal: {1:N2}\n", Convert.ToDouble(HourDifference.TotalHours), Sum);
-
                         //Write total to Fees.txt
                         using (StreamWriter write = new StreamWriter("Fees.txt", true))
                         {
