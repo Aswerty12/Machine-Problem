@@ -370,17 +370,10 @@ namespace ConsoleApp1
             ww.Lbl(Delete, "REMOVE ACCOUNT", 225, 50, 20);
             Back = ww.Btn(Delete, "Back", Color.LightBlue, 60, 40, 10, 350, 10);
             Back.Click += (object sender, EventArgs e) => Return();
-
+            string login = "login.txt";
             try
             {
-                if (File.Exists("New login.txt"))
-                {
-                    Display("New login.txt");
-                }
-                else
-                {
-                    Display("login.txt");
-                }
+                Display(login);
             }
             catch
             {
@@ -394,7 +387,7 @@ namespace ConsoleApp1
             string[] lines = File.ReadAllLines(txtName);
             foreach (var line in lines)
             {
-                var array = line.Split(new string[] { "\t" }, StringSplitOptions.RemoveEmptyEntries);
+                var array = line.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                 Content = string.Format("Line {0}   {1} - {2}", LineNum, array[0], array[1]);
                 mylabel = ww.Lbl(Delete, Content, 230, ypointnum, 13);
                 ypointnum += 30;
