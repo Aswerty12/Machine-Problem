@@ -388,13 +388,14 @@ namespace ConsoleApp1
             foreach (var line in lines)
             {
                 var array = line.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                Content = string.Format("Line {0}   {1} - {2}", LineNum, array[0], array[1]);
+                Content = string.Format("Line {0}   {1},{2}", LineNum, array[0],array[1]);
                 mylabel = ww.Lbl(Delete, Content, 230, ypointnum, 13);
                 ypointnum += 30;
                 LineNum++;
             }
 
             ww.Lbl(Delete, "Line to delete:", 150, 350, 13);
+            ww.Lbl(Delete,"ENTER ONLY Username,Password",150,330,13);
             Input_Line = new TextBox()
             {
                 Width = 70,
@@ -412,34 +413,31 @@ namespace ConsoleApp1
         }
         public void DelAcc_Click()
         {
-            string x;
+            
             try
             {
-                LineNum = 0;
-                int Line_to_delete = int.Parse(Input_Line.Text);
+                
+                string Line_to_delete = Input_Line.Text;
 
-                using (StreamReader reader = new StreamReader("login.txt"))
-                {
-                    //set false to overwrite pero walang nangyayari sfnjsdam
-                    using (StreamWriter writer = new StreamWriter("New login.txt", false))
-                    {
-                        while ((x = reader.ReadLine()) != null)
-                        {
-                            LineNum++;
-
-                            if (LineNum == Line_to_delete)
-                                continue;
-                            writer.WriteLine(x);
-                        }
-                    }
+                string [] oldLogin = File.ReadAllLines("login.txt");
+                foreach(string line in oldLogin){
+                    Console.WriteLine(line);
                 }
-                //checking sa console
-                Console.WriteLine("Line to del: {0}\nFiles\n{1}", Line_to_delete, x);
+                StreamWriter writer = new StreamWriter("login.txt");
+                foreach (string line in oldLogin)
+                {
+                    if (line ==Line_to_delete)
+                    {
+                        continue;
+                    }
+                    writer.WriteLine(line);
+                }
+                writer.Close();
 
                 Input_Line.Clear();
-                //display accounts with the removed account
-                Display("New login.txt");
+                //Returns to previous page to avoid having to reshow the accounts               
                 MessageBox.Show("Account successfully deleted.");
+                Return();
             }
             catch (Exception e)
             {
