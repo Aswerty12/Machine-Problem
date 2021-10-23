@@ -89,9 +89,10 @@ namespace ConsoleApp1
         {
             string Username = this.Username.Text;
             string Password = this.Password.Text;
-
-            using (StreamReader reader = new StreamReader("login.txt", true))
+            StreamReader reader = new StreamReader("login.txt", true);
+            try
             {
+
                 string content = reader.ReadToEnd();
                 string[] lines = content.Split('\n');
                 foreach (string line in lines)
@@ -101,15 +102,21 @@ namespace ConsoleApp1
                     if (Username == account[0].Replace("\r", "") && Password == account[1].Replace("\r", ""))
                     {
                         MessageBox.Show("Login successful.");
+                        reader.Close();
                         LoginWin.Hide();
                         MainMenu MenuWindow = new MainMenu();
                         MenuWindow.MyMenu();
                         break;
                     }
-                    else MessageBox.Show("Login failed.");
-                    break;
-
                 }
+            }
+            catch
+            {
+                MessageBox.Show("Login failed.");
+            }
+            finally
+            {
+                reader.Close();
             }
         }
     }
