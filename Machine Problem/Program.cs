@@ -546,8 +546,9 @@ namespace ConsoleApp1
             };
             customDate1 = new DateTime(2021, 10, 21);
             ww.Lbl(ParkingFloor, floorNum, 10, 10, 15);
-            ww.Lbl(ParkingFloor, "PARKING LOT", 250, 10, 20);
-            ww.Lbl(ParkingFloor, DateTime.Now.ToString("HH:mm"), 530, 10, 20);
+            ww.Lbl(ParkingFloor, "PARKING LOT", 290, 10, 20);
+            ww.Lbl(ParkingFloor, DateTime.Now.ToString("HH:mm"), 510, 10, 17);
+            ww.Lbl(ParkingFloor, DateTime.Today.ToString("MM/dd/yy"), 570, 10, 17);
 
             Button1 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 120, 50, 10);
             Button2 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 230, 50, 10);
