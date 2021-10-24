@@ -203,11 +203,47 @@ namespace ConsoleApp1
             }
             else
             {
-                //clear parking lot code here
+                if(File.Exists("Floor 1.txt"))
+                {
+                    //clear parking lot
+                    File.WriteAllText("Floor 1.txt", String.Empty);
+                    //also clear fees
+                    File.WriteAllText("Fees.txt", String.Empty);
+                }
+                if (File.Exists("Floor 2.txt"))
+                {
+                    File.WriteAllText("Floor 2.txt", String.Empty);
+                    File.WriteAllText("Fees.txt", String.Empty);
+                }
+                if (File.Exists("Floor 3.txt"))
+                {
+                    File.WriteAllText("Floor 3.txt", String.Empty);
+                    File.WriteAllText("Fees.txt", String.Empty);
+                }
+                if (File.Exists("Floor 3.txt"))
+                {
+                    File.WriteAllText("Floor 3.txt", String.Empty);
+                    File.WriteAllText("Fees.txt", String.Empty);
+                }
+                if (File.Exists("Floor 4.txt"))
+                {
+                    File.WriteAllText("Floor 4.txt", String.Empty);
+                    File.WriteAllText("Fees.txt", String.Empty);
+                }
+                if (File.Exists("Floor 5.txt"))
+                {
+                    File.WriteAllText("Floor 5.txt", String.Empty);
+                    File.WriteAllText("Fees.txt", String.Empty);
+                }
 
-                MessageBox.Show("Parking lot cleared.\nTotal earning of the day is: P " + msg);
+                //get date
+                DateTime today = DateTime.Today;
+                string display = string.Format("Parking lot cleared.\n" +
+                    "Date: {0}\n" +
+                    "Total earning of the day is: P {1}", today.ToString("MM/dd/yyyy"), msg);
+
+                MessageBox.Show(display);
             }
-
         }
         public void CheckParkSpace()
         {
