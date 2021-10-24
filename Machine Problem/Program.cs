@@ -25,10 +25,11 @@ namespace ConsoleApp1
             windowName.Controls.Add(label);
             return label;
         }
-        public Button Btn(Control windowName, string text, Color color, int width, int height, int xpoint, int ypoint, int fontSize)
+        public Button Btn(Control windowName, string name, string text, Color color, int width, int height, int xpoint, int ypoint, int fontSize)
         {
             Button button = new Button
             {
+                Name = name,
                 Size = new Size(width, height),
                 AutoSize = true,
                 Location = new Point(xpoint, ypoint),
@@ -78,7 +79,7 @@ namespace ConsoleApp1
                 AutoSize = true,
                 Font = new Font("Bahnschrift SemiLight", 15)
             };
-            Button LoginButton = ww.Btn(LoginWin, "Login", Color.PeachPuff, 150, 40, 265, 290, 15);
+            Button LoginButton = ww.Btn(LoginWin, "Login", "Login", Color.PeachPuff, 150, 40, 265, 290, 15);
             LoginButton.Click += (object sender, EventArgs e) => CheckCredentials();
 
             LoginWin.Controls.Add(Username);
@@ -92,7 +93,7 @@ namespace ConsoleApp1
             StreamReader reader = new StreamReader("login.txt", true);
             try
             {
-
+                
                 string content = reader.ReadToEnd();
                 string[] lines = content.Split('\n');
                 foreach (string line in lines)
@@ -142,11 +143,11 @@ namespace ConsoleApp1
             };
             ww.Lbl(menuWin, "MENU", 300, 50, 20);
 
-            ManageAccountBtn = ww.Btn(menuWin, "Manage Account", Color.PeachPuff, 200, 30, 240, 100, 15);
-            ManageParkBtn = ww.Btn(menuWin, "Manage Parking Lot", Color.PeachPuff, 200, 30, 240, 150, 15);
-            ClearParkBtn = ww.Btn(menuWin, "Clear Parking Lot", Color.PeachPuff, 200, 30, 240, 200, 15);
-            ParkSpaceBtn = ww.Btn(menuWin, "Check Space", Color.PeachPuff, 200, 30, 240, 250, 15);
-            ExitBtn = ww.Btn(menuWin, "Exit", Color.PeachPuff, 200, 30, 240, 300, 15);
+            ManageAccountBtn = ww.Btn(menuWin, "Manage Account", "Manage Account", Color.PeachPuff, 200, 30, 240, 100, 15);
+            ManageParkBtn = ww.Btn(menuWin, "Manage Parking Lot", "Manage Parking Lot", Color.PeachPuff, 200, 30, 240, 150, 15);
+            ClearParkBtn = ww.Btn(menuWin, "Clear Parking Lot", "Clear Parking Lot", Color.PeachPuff, 200, 30, 240, 200, 15);
+            ParkSpaceBtn = ww.Btn(menuWin, "Check Space", "Check Space", Color.PeachPuff, 200, 30, 240, 250, 15);
+            ExitBtn = ww.Btn(menuWin, "Exit", "Exit", Color.PeachPuff, 200, 30, 240, 300, 15);
 
             ManageAccountBtn.Click += (object sender, EventArgs e) => ManageAcc();
             ManageParkBtn.Click += (object sender, EventArgs e) => ManagePark();
@@ -197,9 +198,13 @@ namespace ConsoleApp1
         {
             double Total = CheckTotal();
             string msg = string.Format("{0:N2}", Total);
+            //get date
+            DateTime today = DateTime.Today;
             if (Total == 0)
             {
-                MessageBox.Show("There are no earnings yet...");
+                string display = string.Format("Date: {0}\n" +
+                    "There are no earnings yet...", today.ToString("MM/dd/yyyy"));
+                MessageBox.Show(display);
             }
             else
             {
@@ -231,8 +236,6 @@ namespace ConsoleApp1
                     File.WriteAllText("Fees.txt", String.Empty);
                 }
 
-                //get date
-                DateTime today = DateTime.Today;
                 string display = string.Format("Parking lot cleared.\n" +
                     "Date: {0}\n" +
                     "Total earning of the day is: P {1}", today.ToString("MM/dd/yyyy"), msg);
@@ -247,7 +250,12 @@ namespace ConsoleApp1
             int count = 0;
             foreach (string line in file)
             {
-                count++;
+                string[] info = line.Split(',');
+                string Status = info[3];
+                if (Status == "Occupied")
+                {
+                    count++;
+                }
             }
             return count;
         }
@@ -274,7 +282,7 @@ namespace ConsoleApp1
             {
                 Occupied = CheckFiles("Floor 5.txt");
             }
-            Occupied++;
+            
             int Space = 100 - Occupied;
             MessageBox.Show("Available car space per floor: " + Space);
         }
@@ -300,9 +308,9 @@ namespace ConsoleApp1
             };
             ww.Lbl(accWin, "MANAGE ACCOUNT", 225, 50, 20);
 
-            Button CreateAcc = ww.Btn(accWin, "Create Account", Color.PeachPuff, 200, 30, 240, 125, 15);
-            Button DelAcc = ww.Btn(accWin, "Delete Account", Color.PeachPuff, 200, 30, 240, 200, 15);
-            Button Back = ww.Btn(accWin, "Back", Color.LightBlue, 60, 40, 10, 350, 10);
+            Button CreateAcc = ww.Btn(accWin, "Create Account", "Create Account", Color.PeachPuff, 200, 30, 240, 125, 15);
+            Button DelAcc = ww.Btn(accWin, "Delete Account", "Delete Account", Color.PeachPuff, 200, 30, 240, 200, 15);
+            Button Back = ww.Btn(accWin, "Back", "Back", Color.LightBlue, 60, 40, 10, 350, 10);
 
             CreateAcc.Click += (object sender, EventArgs e) => NewAccount();
             DelAcc.Click += (object sender, EventArgs e) => RemoveAcc();
@@ -371,8 +379,8 @@ namespace ConsoleApp1
                 AutoSize = true,
                 Font = new Font("Bahnschrift SemiLight", 15)
             };
-            CreateBtn = ww.Btn(CreateNew, "Create account", Color.PeachPuff, 150, 40, 265, 290, 15);
-            Back = ww.Btn(CreateNew, "Back", Color.LightBlue, 60, 40, 10, 350, 10);
+            CreateBtn = ww.Btn(CreateNew, "Create account", "Create account", Color.PeachPuff, 150, 40, 265, 290, 15);
+            Back = ww.Btn(CreateNew, "Back", "Back", Color.LightBlue, 60, 40, 10, 350, 10);
 
             CreateBtn.Click += (object sender, EventArgs e) => CreateBtn_Click();
             Back.Click += (object sender, EventArgs e) => Return();
@@ -387,11 +395,11 @@ namespace ConsoleApp1
         {
             string Username = this.Username.Text;
             string Password = this.Password.Text;
-            string content = string.Format("{0},{1}", Username, Password);
             try
             {
                 using (StreamWriter writer = new StreamWriter("login.txt", true))
                 {
+                    string content = string.Format("{0},{1}", Username, Password);
                     writer.WriteLine(content);
                 }
                 MessageBox.Show("Registration successful.");
@@ -400,7 +408,7 @@ namespace ConsoleApp1
             }
             catch
             {
-                MessageBox.Show("Registration failed.");
+                MessageBox.Show("Registration successful.");
             }
         }
         public void Return()
@@ -433,7 +441,7 @@ namespace ConsoleApp1
                 StartPosition = FormStartPosition.CenterScreen
             };
             ww.Lbl(Delete, "REMOVE ACCOUNT", 225, 50, 20);
-            Back = ww.Btn(Delete, "Back", Color.LightBlue, 60, 40, 10, 350, 10);
+            Back = ww.Btn(Delete, "Back", "Back", Color.LightBlue, 60, 40, 10, 350, 10);
             Back.Click += (object sender, EventArgs e) => Return();
             string login = "login.txt";
             try
@@ -463,13 +471,13 @@ namespace ConsoleApp1
             ww.Lbl(Delete, "ENTER ONLY Username,Password", 150, 330, 13);
             Input_Line = new TextBox()
             {
-                Width = 70,
+                Width = 150,
                 Height = 100,
-                Location = new Point(300, 350),
+                Location = new Point(270, 350),
                 AutoSize = true,
                 Font = new Font("Bahnschrift SemiLight", 13)
             };
-            DelAcc = ww.Btn(Delete, "Delete", Color.PeachPuff, 150, 30, 450, 350, 15);
+            DelAcc = ww.Btn(Delete, "Delete", "Delete", Color.PeachPuff, 150, 30, 450, 350, 15);
             DelAcc.Click += (object sender, EventArgs e) => DelAcc_Click();
 
             Delete.Controls.Add(Input_Line);
@@ -523,7 +531,6 @@ namespace ConsoleApp1
         TextBox PlateNo;
         TextBox TimeIn;
         Form ParkingFloor;
-        DateTime customDate1;
 
         Button Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9, Button10;
         Button Button11, Button12, Button13, Button14, Button15, Button16, Button17, Button18, Button19, Button20;
@@ -544,42 +551,42 @@ namespace ConsoleApp1
                 Height = 500,
                 StartPosition = FormStartPosition.CenterScreen
             };
-            customDate1 = new DateTime(2021, 10, 21);
+            
             ww.Lbl(ParkingFloor, floorNum, 10, 10, 15);
             ww.Lbl(ParkingFloor, "PARKING LOT", 290, 10, 20);
             ww.Lbl(ParkingFloor, DateTime.Now.ToString("HH:mm"), 510, 10, 17);
             ww.Lbl(ParkingFloor, DateTime.Today.ToString("MM/dd/yy"), 570, 10, 17);
 
-            Button1 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 120, 50, 10);
-            Button2 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 230, 50, 10);
-            Button3 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 340, 50, 10);
-            Button4 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 450, 50, 10);
-            Button5 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 570, 50, 10);
+            Button1 = ww.Btn(ParkingFloor, "Button1", "Lot 1", Color.DarkSeaGreen, 100, 50, 120, 50, 10);
+            Button2 = ww.Btn(ParkingFloor, "Button2", "Lot 2", Color.DarkSeaGreen, 100, 50, 230, 50, 10);
+            Button3 = ww.Btn(ParkingFloor, "Button3", "Lot 3", Color.DarkSeaGreen, 100, 50, 340, 50, 10);
+            Button4 = ww.Btn(ParkingFloor, "Button4", "Lot 4", Color.DarkSeaGreen, 100, 50, 450, 50, 10);
+            Button5 = ww.Btn(ParkingFloor, "Button5", "Lot 5", Color.DarkSeaGreen, 100, 50, 570, 50, 10);
 
-            Button6 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 120, 120, 10);
-            Button7 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 230, 120, 10);
-            Button8 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 340, 120, 10);
-            Button9 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 450, 120, 10);
-            Button10 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 570, 120, 10);
+            Button6 = ww.Btn(ParkingFloor, "Button6", "Lot 6", Color.DarkSeaGreen, 100, 50, 120, 120, 10);
+            Button7 = ww.Btn(ParkingFloor, "Button7", "Lot 7", Color.DarkSeaGreen, 100, 50, 230, 120, 10);
+            Button8 = ww.Btn(ParkingFloor, "Button8", "Lot 8", Color.DarkSeaGreen, 100, 50, 340, 120, 10);
+            Button9 = ww.Btn(ParkingFloor, "Button9", "Lot 9", Color.DarkSeaGreen, 100, 50, 450, 120, 10);
+            Button10 = ww.Btn(ParkingFloor, "Button10", "Lot 10", Color.DarkSeaGreen, 100, 50, 570, 120, 10);
 
-            Button11 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 120, 190, 10);
-            Button12 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 230, 190, 10);
-            Button13 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 340, 190, 10);
-            Button14 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 450, 190, 10);
-            Button15 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 570, 190, 10);
+            Button11 = ww.Btn(ParkingFloor, "Button11", "Lot 11", Color.DarkSeaGreen, 100, 50, 120, 190, 10);
+            Button12 = ww.Btn(ParkingFloor, "Button12", "Lot 12", Color.DarkSeaGreen, 100, 50, 230, 190, 10);
+            Button13 = ww.Btn(ParkingFloor, "Button13", "Lot 13", Color.DarkSeaGreen, 100, 50, 340, 190, 10);
+            Button14 = ww.Btn(ParkingFloor, "Button14", "Lot 14", Color.DarkSeaGreen, 100, 50, 450, 190, 10);
+            Button15 = ww.Btn(ParkingFloor, "Button15", "Lot 15", Color.DarkSeaGreen, 100, 50, 570, 190, 10);
 
-            Button16 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 120, 260, 10);
-            Button17 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 230, 260, 10);
-            Button18 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 340, 260, 10);
-            Button19 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 450, 260, 10);
-            Button20 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 570, 260, 10);
+            Button16 = ww.Btn(ParkingFloor, "Button16", "Lot 16", Color.DarkSeaGreen, 100, 50, 120, 260, 10);
+            Button17 = ww.Btn(ParkingFloor, "Button17", "Lot 17", Color.DarkSeaGreen, 100, 50, 230, 260, 10);
+            Button18 = ww.Btn(ParkingFloor, "Button18", "Lot 18", Color.DarkSeaGreen, 100, 50, 340, 260, 10);
+            Button19 = ww.Btn(ParkingFloor, "Button19", "Lot 19", Color.DarkSeaGreen, 100, 50, 450, 260, 10);
+            Button20 = ww.Btn(ParkingFloor, "Button20", "Lot 20", Color.DarkSeaGreen, 100, 50, 570, 260, 10);
 
-            Floor1 = ww.Btn(ParkingFloor, "Floor 1", Color.PeachPuff, 30, 30, 10, 50, 10);
-            Floor2 = ww.Btn(ParkingFloor, "Floor 2", Color.PeachPuff, 30, 30, 10, 110, 10);
-            Floor3 = ww.Btn(ParkingFloor, "Floor 3", Color.PeachPuff, 30, 30, 10, 170, 10);
-            Floor4 = ww.Btn(ParkingFloor, "Floor 4", Color.PeachPuff, 30, 30, 10, 230, 10);
-            Floor5 = ww.Btn(ParkingFloor, "Floor 5", Color.PeachPuff, 30, 30, 10, 290, 10);
-            Back = ww.Btn(ParkingFloor, "Back", Color.LightBlue, 60, 40, 10, 350, 10);
+            Floor1 = ww.Btn(ParkingFloor, "Floor1", "Floor 1", Color.PeachPuff, 30, 30, 10, 50, 10);
+            Floor2 = ww.Btn(ParkingFloor, "Floor2", "Floor 2", Color.PeachPuff, 30, 30, 10, 110, 10);
+            Floor3 = ww.Btn(ParkingFloor, "Floor3", "Floor 3", Color.PeachPuff, 30, 30, 10, 170, 10);
+            Floor4 = ww.Btn(ParkingFloor, "Floor4", "Floor 4", Color.PeachPuff, 30, 30, 10, 230, 10);
+            Floor5 = ww.Btn(ParkingFloor, "Floor5", "Floor 5", Color.PeachPuff, 30, 30, 10, 290, 10);
+            Back = ww.Btn(ParkingFloor, "Back", "Back", Color.LightBlue, 60, 40, 10, 350, 10);
 
             InputData(); //textbox designs here
 
@@ -642,7 +649,7 @@ namespace ConsoleApp1
             string Plate = PlateNo.Text;
             string Time = TimeIn.Text;
             string Filename = floorNum + ".txt";
-            string BtnText = BtnNo.Text;
+            string name = BtnNo.Name;
 
             if (Time == "" || Plate == "")
             {
@@ -654,7 +661,7 @@ namespace ConsoleApp1
                 {
                     using (StreamWriter write = new StreamWriter(Filename, true))
                     {
-                        string data = string.Format("{0},{1},{2}", Plate, Time, BtnText);
+                        string data = string.Format("{0},{1},{2},Occupied", Plate, Time, name);
                         write.WriteLine(data);
                     }
                     MessageBox.Show("Data saved successfully.");
@@ -663,7 +670,6 @@ namespace ConsoleApp1
                     TimeIn.Clear();
                     //change state of button
                     BtnNo.BackColor = Color.PaleVioletRed;
-                    BtnNo.Text = "Occupied";
                 }
                 catch
                 {
@@ -671,43 +677,56 @@ namespace ConsoleApp1
                 }
             }
         }
-
-
         public void Second_Click(Button BtnNo, string floorNum)
         {
             BtnNo.BackColor = Color.DarkSeaGreen;
-            BtnNo.Text = "Unoccupied";
             string Filename = floorNum + ".txt";
             string TimeIn;
-            string TimeOut = DateTime.Now.ToString("HH:mm");
+            string TimeOut =  DateTime.Now.ToString("HH:mm");
             TimeSpan HourDifference;
             double Sum;
             try
             {
-                using (StreamReader reader = new StreamReader(Filename, true))
+
+                string[] oldFile = File.ReadAllLines(Filename);
+                foreach (string line in oldFile)
                 {
-                    string content = reader.ReadToEnd();
-                    string[] lines = content.Split('\n');
-                    //Get the TimeIn from text file
-                    foreach (string line in lines)
+                    string[] info = line.Split(',');
+                    TimeIn = info[1];
+                    //compute
+                    HourDifference = Convert.ToDateTime(TimeIn) - Convert.ToDateTime(TimeOut);
+                    Sum = (HourDifference.TotalHours * Fee) * -1;
+                    string Total = string.Format("{0:N2}", Sum);
+
+                    //Write total to Fees.txt
+                    using (StreamWriter write = new StreamWriter("Fees.txt", true))
                     {
-                        string[] info = line.Split(',');
-                        TimeIn = info[1];
-                        //compute
-                        HourDifference = Convert.ToDateTime(TimeIn) - Convert.ToDateTime(TimeOut);
-                        Sum = (HourDifference.TotalHours * Fee) * -1;
-                        string Total = string.Format("{0:N2}", Sum);
-                        //Write total to Fees.txt
-                        using (StreamWriter write = new StreamWriter("Fees.txt", true))
-                        {
-                            write.WriteLine(Total);
-                        }
-                        // display the parking fee
-                        MessageBox.Show("The parking fee is " + Total);
+                        write.WriteLine(Total);
                     }
+                    // display the parking fee
+                    MessageBox.Show("The parking fee is " + Total);
+
                 }
+                // Rewrite the file but replace the occupied with unoccupied
+                StreamWriter writer = new StreamWriter(Filename);
+                foreach (string line in oldFile)
+                {
+                    string[] info = line.Split(',');
+                    string Button = info[2];
+                    if(Button == BtnNo.Name)
+                    {
+                        string Status = info[3];
+                        if (Status == "Occupied")
+                        {
+                            writer.WriteLine(line.Replace("Occupied", "Unoccupied"));
+                            continue;
+                        }
+                    }
+                    writer.WriteLine(line);
+                }
+                writer.Close();
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -739,7 +758,6 @@ namespace ConsoleApp1
         {
             LoginForm login = new LoginForm();
             login.Login();
-
-            }
+        }
     }
 }
