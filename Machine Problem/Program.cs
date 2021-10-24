@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 
-namespace ConsoleApp1
+namespace MachineProblem
 {
     class Widgets
     {
@@ -93,7 +93,6 @@ namespace ConsoleApp1
             StreamReader reader = new StreamReader("login.txt", true);
             try
             {
-                
                 string content = reader.ReadToEnd();
                 string[] lines = content.Split('\n');
                 foreach (string line in lines)
@@ -170,7 +169,6 @@ namespace ConsoleApp1
             //parking window
             menuWin.Hide();
             ParkingLot ParkLot = new ParkingLot();
-            //magdagdag pa text file parameter
             ParkLot.Floor("Floor 1");
         }
         public double CheckTotal()
@@ -208,7 +206,7 @@ namespace ConsoleApp1
             }
             else
             {
-                if(File.Exists("Floor 1.txt"))
+                if (File.Exists("Floor 1.txt"))
                 {
                     //clear parking lot
                     File.WriteAllText("Floor 1.txt", String.Empty);
@@ -282,7 +280,7 @@ namespace ConsoleApp1
             {
                 Occupied = CheckFiles("Floor 5.txt");
             }
-            
+
             int Space = 100 - Occupied;
             MessageBox.Show("Available car space per floor: " + Space);
         }
@@ -551,7 +549,7 @@ namespace ConsoleApp1
                 Height = 500,
                 StartPosition = FormStartPosition.CenterScreen
             };
-            
+
             ww.Lbl(ParkingFloor, floorNum, 10, 10, 15);
             ww.Lbl(ParkingFloor, "PARKING LOT", 290, 10, 20);
             ww.Lbl(ParkingFloor, DateTime.Now.ToString("HH:mm"), 510, 10, 17);
@@ -682,7 +680,7 @@ namespace ConsoleApp1
             BtnNo.BackColor = Color.DarkSeaGreen;
             string Filename = floorNum + ".txt";
             string TimeIn;
-            string TimeOut =  DateTime.Now.ToString("HH:mm");
+            string TimeOut = DateTime.Now.ToString("HH:mm");
             TimeSpan HourDifference;
             double Sum;
             try
@@ -705,7 +703,7 @@ namespace ConsoleApp1
                     }
                     // display the parking fee
                     MessageBox.Show("The parking fee is " + Total);
-
+                    break;
                 }
                 // Rewrite the file but replace the occupied with unoccupied
                 StreamWriter writer = new StreamWriter(Filename);
@@ -713,7 +711,7 @@ namespace ConsoleApp1
                 {
                     string[] info = line.Split(',');
                     string Button = info[2];
-                    if(Button == BtnNo.Name)
+                    if (Button == BtnNo.Name)
                     {
                         string Status = info[3];
                         if (Status == "Occupied")
@@ -726,7 +724,7 @@ namespace ConsoleApp1
                 }
                 writer.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -758,6 +756,7 @@ namespace ConsoleApp1
         {
             LoginForm login = new LoginForm();
             login.Login();
+
         }
     }
 }
