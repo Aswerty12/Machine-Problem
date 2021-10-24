@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -388,14 +388,14 @@ namespace ConsoleApp1
             foreach (var line in lines)
             {
                 var array = line.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                Content = string.Format("Line {0}   {1},{2}", LineNum, array[0],array[1]);
+                Content = string.Format("Line {0}   {1},{2}", LineNum, array[0], array[1]);
                 mylabel = ww.Lbl(Delete, Content, 230, ypointnum, 13);
                 ypointnum += 30;
                 LineNum++;
             }
 
             ww.Lbl(Delete, "Line to delete:", 150, 350, 13);
-            ww.Lbl(Delete,"ENTER ONLY Username,Password",150,330,13);
+            ww.Lbl(Delete, "ENTER ONLY Username,Password", 150, 330, 13);
             Input_Line = new TextBox()
             {
                 Width = 70,
@@ -413,20 +413,21 @@ namespace ConsoleApp1
         }
         public void DelAcc_Click()
         {
-            
+
             try
             {
-                
+
                 string Line_to_delete = Input_Line.Text;
 
-                string [] oldLogin = File.ReadAllLines("login.txt");
-                foreach(string line in oldLogin){
+                string[] oldLogin = File.ReadAllLines("login.txt");
+                foreach (string line in oldLogin)
+                {
                     Console.WriteLine(line);
                 }
                 StreamWriter writer = new StreamWriter("login.txt");
                 foreach (string line in oldLogin)
                 {
-                    if (line ==Line_to_delete)
+                    if (line == Line_to_delete)
                     {
                         continue;
                     }
@@ -454,49 +455,22 @@ namespace ConsoleApp1
     }
     class ParkingLot
     {
-        Label La;
         TextBox PlateNo;
         TextBox TimeIn;
         Form ParkingFloor;
         DateTime customDate1;
 
-        Button Button1;
-        Button Button2;
-        Button Button3;
-        Button Button4;
-        Button Button5;
+        Button Button1, Button2, Button3, Button4, Button5, Button6, Button7, Button8, Button9, Button10;
+        Button Button11, Button12, Button13, Button14, Button15, Button16, Button17, Button18, Button19, Button20;
 
-        Button Button6;
-        Button Button7;
-        Button Button8;
-        Button Button9;
-        Button Button10;
+        Button Floor1, Floor2, Floor3, Floor4, Floor5, Back;
 
-        Button Button11;
-        Button Button12;
-        Button Button13;
-        Button Button14;
-        Button Button15;
-
-        Button Button16;
-        Button Button17;
-        Button Button18;
-        Button Button19;
-        Button Button20;
-
-        Button Floor1;
-        Button Floor2;
-        Button Floor3;
-        Button Floor4;
-        Button Floor5;
-        Button Back;
-        double Fee = 20.00;
+        double Fee = 20;
 
         Widgets ww = new Widgets();
 
         public void Floor(string floorNum)
         {
-            customDate1 = new DateTime(2021, 10, 21);
             ParkingFloor = new Form
             {
                 Text = "Parking Ticket System",
@@ -505,19 +479,10 @@ namespace ConsoleApp1
                 Height = 500,
                 StartPosition = FormStartPosition.CenterScreen
             };
-            La = new Label
-            {
-                Text = DateTime.Now.ToString("HH:mm"),
-                Width = 150,
-                Height = 50,
-                Location = new Point(530, 10),
-                Font = new Font("Bahnschrift SemiLight", 20)
-            };
-
+            customDate1 = new DateTime(2021, 10, 21);
             ww.Lbl(ParkingFloor, floorNum, 10, 10, 15);
             ww.Lbl(ParkingFloor, "PARKING LOT", 250, 10, 20);
-            ww.Lbl(ParkingFloor, "Time:", 480, 10, 15);
-
+            ww.Lbl(ParkingFloor, DateTime.Now.ToString("HH:mm"), 530, 10, 20);
 
             Button1 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 120, 50, 10);
             Button2 = ww.Btn(ParkingFloor, "Unoccupied", Color.DarkSeaGreen, 100, 50, 230, 50, 10);
@@ -552,32 +517,32 @@ namespace ConsoleApp1
 
             InputData(); //textbox designs here
 
-            Button1.Click += (object sender, EventArgs e) => Button1_onClick(floorNum);
-            Button2.Click += (object sender, EventArgs e) => Button2_onClick(floorNum);
-            Button3.Click += (object sender, EventArgs e) => Button3_onClick(floorNum);
-            Button4.Click += (object sender, EventArgs e) => Button4_onClick(floorNum);
-            Button5.Click += (object sender, EventArgs e) => Button5_onClick(floorNum);
-            Button6.Click += (object sender, EventArgs e) => Button6_onClick(floorNum);
-            Button7.Click += (object sender, EventArgs e) => Button7_onClick(floorNum);
-            Button8.Click += (object sender, EventArgs e) => Button8_onClick(floorNum);
-            Button9.Click += (object sender, EventArgs e) => Button9_onClick(floorNum);
-            Button10.Click += (object sender, EventArgs e) => Button10_onClick(floorNum);
-            /*Button11.Click += (object sender, EventArgs e) => Button11_onClick(floorNum);
-            Button12.Click += (object sender, EventArgs e) => Button12_onClick(floorNum);
-            Button13.Click += (object sender, EventArgs e) => Button13_onClick(floorNum);
-            Button14.Click += (object sender, EventArgs e) => Button14_onClick(floorNum);
-            Button15.Click += (object sender, EventArgs e) => Button15_onClick(floorNum);
-            Button16.Click += (object sender, EventArgs e) => Button16_onClick(floorNum);
-            Button17.Click += (object sender, EventArgs e) => Button17_onClick(floorNum);
-            Button18.Click += (object sender, EventArgs e) => Button18_onClick(floorNum);
-            Button19.Click += (object sender, EventArgs e) => Button19_onClick(floorNum);
-            Button20.Click += (object sender, EventArgs e) => Button20_onClick(floorNum);*/
+            Button1.Click += (object sender, EventArgs e) => Buttons_Click(Button1, floorNum);
+            Button2.Click += (object sender, EventArgs e) => Buttons_Click(Button2, floorNum);
+            Button3.Click += (object sender, EventArgs e) => Buttons_Click(Button3, floorNum);
+            Button4.Click += (object sender, EventArgs e) => Buttons_Click(Button4, floorNum);
+            Button5.Click += (object sender, EventArgs e) => Buttons_Click(Button5, floorNum);
+            Button6.Click += (object sender, EventArgs e) => Buttons_Click(Button6, floorNum);
+            Button7.Click += (object sender, EventArgs e) => Buttons_Click(Button7, floorNum);
+            Button8.Click += (object sender, EventArgs e) => Buttons_Click(Button8, floorNum);
+            Button9.Click += (object sender, EventArgs e) => Buttons_Click(Button9, floorNum);
+            Button10.Click += (object sender, EventArgs e) => Buttons_Click(Button10, floorNum);
+            Button11.Click += (object sender, EventArgs e) => Buttons_Click(Button11, floorNum);
+            Button12.Click += (object sender, EventArgs e) => Buttons_Click(Button12, floorNum);
+            Button13.Click += (object sender, EventArgs e) => Buttons_Click(Button13, floorNum);
+            Button14.Click += (object sender, EventArgs e) => Buttons_Click(Button14, floorNum);
+            Button15.Click += (object sender, EventArgs e) => Buttons_Click(Button15, floorNum);
+            Button16.Click += (object sender, EventArgs e) => Buttons_Click(Button16, floorNum);
+            Button17.Click += (object sender, EventArgs e) => Buttons_Click(Button17, floorNum);
+            Button18.Click += (object sender, EventArgs e) => Buttons_Click(Button18, floorNum);
+            Button19.Click += (object sender, EventArgs e) => Buttons_Click(Button19, floorNum);
+            Button20.Click += (object sender, EventArgs e) => Buttons_Click(Button20, floorNum);
 
-            Floor1.Click += (object sender, EventArgs e) => Floor1_Click();
-            Floor2.Click += (object sender, EventArgs e) => Floor2_Click();
-            Floor3.Click += (object sender, EventArgs e) => Floor3_Click();
-            Floor4.Click += (object sender, EventArgs e) => Floor4_Click();
-            Floor5.Click += (object sender, EventArgs e) => Floor5_Click();
+            Floor1.Click += (object sender, EventArgs e) => Floor_Click("Floor 1");
+            Floor2.Click += (object sender, EventArgs e) => Floor_Click("Floor 2");
+            Floor3.Click += (object sender, EventArgs e) => Floor_Click("Floor 3");
+            Floor4.Click += (object sender, EventArgs e) => Floor_Click("Floor 4");
+            Floor5.Click += (object sender, EventArgs e) => Floor_Click("Floor 5");
             Back.Click += (object sender, EventArgs e) => Return();
 
             ParkingFloor.ShowDialog();
@@ -603,7 +568,6 @@ namespace ConsoleApp1
                 AutoSize = true,
                 Font = new Font("Bahnschrift SemiLight", 13)
             };
-            ParkingFloor.Controls.Add(La);
             ParkingFloor.Controls.Add(PlateNo);
             ParkingFloor.Controls.Add(TimeIn);
         }
@@ -624,7 +588,7 @@ namespace ConsoleApp1
                 {
                     using (StreamWriter write = new StreamWriter(Filename, true))
                     {
-                        string data = string.Format("{0}\t{1}\t{2}", Plate, Time, BtnText);
+                        string data = string.Format("{0},{1},{2}", Plate, Time, BtnText);
                         write.WriteLine(data);
                     }
                     MessageBox.Show("Data saved successfully.");
@@ -641,111 +605,58 @@ namespace ConsoleApp1
                 }
             }
         }
+
+
         public void Second_Click(Button BtnNo, string floorNum)
         {
             BtnNo.BackColor = Color.DarkSeaGreen;
             BtnNo.Text = "Unoccupied";
-            int total;
-
-
-            //compute for total fee
-            //timeIn - timeOut
-
-            //write fee to text file
+            string Filename = floorNum + ".txt";
+            string TimeIn;
+            string TimeOut = DateTime.Now.ToString("HH:mm");
+            TimeSpan HourDifference;
+            double Sum;
             try
             {
-                using (StreamWriter write = new StreamWriter("Fees.txt", true))
+                using (StreamReader reader = new StreamReader(Filename, true))
                 {
-
-                    write.WriteLine(Fee);
+                    string content = reader.ReadToEnd();
+                    string[] lines = content.Split('\n');
+                    //Get the TimeIn from text file
+                    foreach (string line in lines)
+                    {
+                        string[] info = line.Split(',');
+                        TimeIn = info[1];
+                        //compute
+                        HourDifference = Convert.ToDateTime(TimeIn) - Convert.ToDateTime(TimeOut);
+                        Sum = (HourDifference.TotalHours * Fee) * -1;
+                        string Total = string.Format("{0:N2}", Sum);
+                        //Write total to Fees.txt
+                        using (StreamWriter write = new StreamWriter("Fees.txt", true))
+                        {
+                            write.WriteLine(Total);
+                        }
+                        // display the parking fee
+                        MessageBox.Show("The parking fee is " + Total);
+                    }
                 }
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show("An error occurred.");
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            // display the parking fee
-            MessageBox.Show("The parking fee is P");
-
         }
-        public void Button1_onClick(string floorNum)
+        public void Buttons_Click(Button BtnName, string floorNum)
         {
-            First_Click(Button1, floorNum);
-            Button1.Click += (object sender, EventArgs e) => Second_Click(Button1, floorNum);
+            First_Click(BtnName, floorNum);
+            BtnName.Click += (object sender, EventArgs e) => Second_Click(BtnName, floorNum);
 
         }
-        public void Button2_onClick(string floorNum)
-        {
-            First_Click(Button2, floorNum);
-            Button2.Click += (object sender, EventArgs e) => Second_Click(Button2, floorNum);
-        }
-        public void Button3_onClick(string floorNum)
-        {
-            First_Click(Button3, floorNum);
-            Button3.Click += (object sender, EventArgs e) => Second_Click(Button3, floorNum);
-        }
-        public void Button4_onClick(string floorNum)
-        {
-            First_Click(Button4, floorNum);
-            Button4.Click += (object sender, EventArgs e) => Second_Click(Button4, floorNum);
-        }
-        public void Button5_onClick(string floorNum)
-        {
-            First_Click(Button5, floorNum);
-            Button5.Click += (object sender, EventArgs e) => Second_Click(Button5, floorNum);
-        }
-        public void Button6_onClick(string floorNum)
-        {
-            First_Click(Button6, floorNum);
-            Button6.Click += (object sender, EventArgs e) => Second_Click(Button6, floorNum);
-        }
-        public void Button7_onClick(string floorNum)
-        {
-            First_Click(Button7, floorNum);
-            Button7.Click += (object sender, EventArgs e) => Second_Click(Button7, floorNum);
-        }
-        public void Button8_onClick(string floorNum)
-        {
-            First_Click(Button8, floorNum);
-            Button8.Click += (object sender, EventArgs e) => Second_Click(Button8, floorNum);
-        }
-        public void Button9_onClick(string floorNum)
-        {
-            First_Click(Button9, floorNum);
-            Button9.Click += (object sender, EventArgs e) => Second_Click(Button9, floorNum);
-        }
-        public void Button10_onClick(string floorNum)
-        {
-            First_Click(Button10, floorNum);
-            Button10.Click += (object sender, EventArgs e) => Second_Click(Button10, floorNum);
-        }
-
-        public void Floor1_Click()
+        public void Floor_Click(string floorNum)
         {
             ParkingFloor.Hide();
             //add text file parameter to retrieve data
-            Floor("Floor 1");
-        }
-        public void Floor2_Click()
-        {
-            ParkingFloor.Hide();
-            Floor("Floor 2");
-        }
-        public void Floor3_Click()
-        {
-            ParkingFloor.Hide();
-            Floor("Floor 3");
-        }
-        public void Floor4_Click()
-        {
-            ParkingFloor.Hide();
-            Floor("Floor 4");
-        }
-        public void Floor5_Click()
-        {
-            ParkingFloor.Hide();
-            Floor("Floor 5");
+            Floor(floorNum);
         }
         public void Return()
         {
@@ -763,6 +674,6 @@ namespace ConsoleApp1
             LoginForm login = new LoginForm();
             login.Login();
 
-        }
+            }
     }
 }
