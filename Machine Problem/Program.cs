@@ -240,9 +240,43 @@ namespace ConsoleApp1
                 MessageBox.Show(display);
             }
         }
+        // this method will count the data in the file. These data are the occupied lots
+        public int CheckFiles(string FileName)
+        {
+            string[] file = File.ReadAllLines(FileName);
+            int count = 0;
+            foreach (string line in file)
+            {
+                count++;
+            }
+            return count;
+        }
         public void CheckParkSpace()
         {
-            MessageBox.Show("Available car space per floor: ");
+            int Occupied = 0;
+            if (File.Exists("Floor 1.txt"))
+            {
+                Occupied = CheckFiles("Floor 1.txt");
+            }
+            if (File.Exists("Floor 2.txt"))
+            {
+                Occupied = CheckFiles("Floor 2.txt");
+            }
+            if (File.Exists("Floor 3.txt"))
+            {
+                Occupied = CheckFiles("Floor 3.txt");
+            }
+            if (File.Exists("Floor 4.txt"))
+            {
+                Occupied = CheckFiles("Floor 4.txt");
+            }
+            if (File.Exists("Floor 5.txt"))
+            {
+                Occupied = CheckFiles("Floor 5.txt");
+            }
+            Occupied++;
+            int Space = 100 - Occupied;
+            MessageBox.Show("Available car space per floor: " + Space);
         }
         public void Exit()
         {
