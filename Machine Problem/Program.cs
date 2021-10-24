@@ -220,11 +220,6 @@ namespace ConsoleApp1
                     File.WriteAllText("Floor 3.txt", String.Empty);
                     File.WriteAllText("Fees.txt", String.Empty);
                 }
-                if (File.Exists("Floor 3.txt"))
-                {
-                    File.WriteAllText("Floor 3.txt", String.Empty);
-                    File.WriteAllText("Fees.txt", String.Empty);
-                }
                 if (File.Exists("Floor 4.txt"))
                 {
                     File.WriteAllText("Floor 4.txt", String.Empty);
